@@ -34,7 +34,7 @@ Installation
 
 3. Configure rtmbot (https://api.slack.com/bot-users)
 
-        cp doc/example-config/rtmbot.conf .
+        cp docs/example-config/rtmbot.conf .
         vi rtmbot.conf
           SLACK_TOKEN: "xoxb-11111111111-222222222222222"
 
@@ -48,7 +48,7 @@ Plugins can be installed as .py files in the ```plugins/``` directory OR as a .p
 To install the example 'repeat' plugin
 
     mkdir plugins/repeat
-    cp doc/example-plugins/repeat.py plugins/repeat
+    cp docs/example-plugins/repeat.py plugins/repeat/
 
 The repeat plugin will now be loaded by the bot on startup.
 
@@ -88,6 +88,19 @@ Plugins can also run methods on a schedule. This allows a plugin to poll for upd
 
 ####Plugin misc
 The data within a plugin persists for the life of the rtmbot process. If you need persistent data, you should use something like sqlite or the python pickle libraries.
+
+####Direct API Calls
+You can directly call the Slack web API in your plugins by including the following import:
+
+    from client import slack_client
+
+You can also rename the client on import so it can be easily referenced like shown below:
+
+    from client import slack_client as sc
+
+Direct API calls can be called in your plugins in the following form:
+    
+    sc.api_call("API.method", "parameters")
 
 ####Todo:
 Some rtm data should be handled upstream, such as channel and user creation. These should create the proper objects on-the-fly.
